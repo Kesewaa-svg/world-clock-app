@@ -22,10 +22,37 @@ function updateTime() {
       "HH:mm:ss[<small>]A[</small>]"
     );
   }
+
+  let singaporeElement = document.querySelector("#singapore");
+  if (singaporeElement) {
+    let singaporeDateElement = singaporeElement.querySelector(".date");
+    let singaporeTimeElement = singaporeElement.querySelector(".time");
+    let singaporeTime = moment().tz("Asia/Singapore");
+
+    singaporeDateElement.innerHTML = singaporeTime.format("MMMM Do YYYY");
+    singaporeTimeElement.innerHTML = singaporeTime.format(
+      "HH:mm:ss[<small>]A[</small>]"
+    );
+  }
+
+  let nairobiElement = document.querySelector("#nairobi");
+  if (nairobiElement) {
+    let nairobiDateElement = nairobiElement.querySelector(".date");
+    let nairobiTimeElement = nairobiElement.querySelector(".time");
+    let nairobiTime = moment().tz("Africa/Nairobi");
+
+    nairobiDateElement.innerHTML = nairobiTime.format("MMMM Do YYYY");
+    nairobiTimeElement.innerHTML = nairobiTime.format(
+      "HH:mm:ss[<small>]A[</small>]"
+    );
+  }
 }
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
+  if (cityTimeZone === "current") {
+    cityTimeZone = moment.tz.guess();
+  }
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
@@ -35,7 +62,7 @@ function updateCity(event) {
       <h2>${cityName}</h2>
       <div class="date">${cityTime.format("MMMM	Do YYYY")}</div>
     </div>
-    <div class="time">${cityTime.format("h:mm:ss")} <small>${cityTime.format(
+    <div class="time">${cityTime.format("HH:mm:ss")} <small>${cityTime.format(
     "A"
   )}</small></div>
   </div>
